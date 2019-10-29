@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Create a public ip address
+      azure_rm_publicipaddress:
+        resource_group: myResourceGroup
+        name: my_public_ip
+        #allocation_method: static
+    - name: Create a network security group
+      azure_rm_securitygroup:
+        resource_group: myResourceGroup
+        name: my_NSG
+        rules:
+          - name: SSH
+            protocol: Tcp
+            destination_port_range: 22-23
+            access: Allow
+            priority: 1001
+            direction: Inbound
+    - name: Create a network interface with minimal parameters
+      azure_rm_networkinterface:
+        name: my_NIC
+        resource_group: myResourceGroup
+        virtual_network: vnet_test
+        subnet_name: subnetnet_test1
+        security_group: pvcNSG
+        public_ip_name: my_public_ip
+

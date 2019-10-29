@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create a network interface with minimal parameters
+      azure_rm_networkinterface:
+        name: my_NIC
+        resource_group: myResourceGroup
+        virtual_network: OCNPW-NE-Sandbox1-VNet
+        subnet_name: ocnpw-ne-sandbox1-subnet
+        security_group: pvcNSG
+        public_ip_name: None

@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Create a resource group
+      azure_rm_resourcegroup: #azure_rm_resourcegroup – This Module Manages Azure resource groups
+        subscription_id: 8e043298-911d-482d-b39a-d83aabe9e445
+        name: myResourceGroup 
+        location: westus
+        tags:
+            testing: testing
+            delete: never
+      register: rg 
+    - debug:
+        var: rg
+
+
+
+#How to run this playbook:
+# ansible-playbook my-rg.yaml
+
